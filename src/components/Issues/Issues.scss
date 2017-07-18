@@ -1,0 +1,14 @@
+.pagination {
+  display: flex;
+  margin-bottom: 1em;
+}
+
+.page {
+  margin-left: 1em;
+  cursor: pointer;
+  color: #09f;
+
+  &:first-child {
+    margin-left: unset;
+  }
+}
