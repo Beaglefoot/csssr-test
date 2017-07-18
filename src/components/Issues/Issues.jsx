@@ -8,30 +8,41 @@ class Issues extends React.Component {
   constructor() {
     super();
 
-    this.state = { issues: [] };
+    this.state = { issues: [], error: '' };
 
     this.fetchIssues = this.fetchIssues.bind(this);
   }
 
   fetchIssues(search) {
     return fetch(`https://api.github.com/repos/${search}/issues?page=1&per_page=3`)
-      .then(response => response.json())
-      .catch(err => console.log(`fetch was unsuccessful: ${err}`));
+      .then(response => {
+        if (response.status >= 200 && response.status < 300) return response;
+        else {
+          const error = new Error(response.statusText);
+          throw error;
+        }
+      })
+      .then(response => response.json());
+  }
+
+  handleStateOnFetch(search) {
+    this.fetchIssues(search)
+      .then(issues => this.setState({ issues, error: '' }))
+      .catch(({ message }) => this.setState({ error: message }));
   }
 
   componentDidMount() {
-    this.fetchIssues(this.props.search)
-      .then(issues => this.setState({ issues }));
+    this.handleStateOnFetch(this.props.search);
   }
 
   componentWillReceiveProps({ search }) {
-    this.fetchIssues(search)
-      .then(issues => this.setState({ issues }));
+    this.handleStateOnFetch(search);
   }
 
   render() {
-    const { issues } = this.state;
+    const { issues, error } = this.state;
 
+    if (error)          return <div>{error}</div>;
     if (!issues.length) return <div>Loading...</div>;
 
     return (
