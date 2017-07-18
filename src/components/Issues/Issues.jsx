@@ -4,8 +4,9 @@ import PropTypes from 'prop-types';
 import 'whatwg-fetch';
 
 import Issue from '../Issue/Issue';
+import Select from '../Select/Select';
 
-import { pagination, page } from './Issues.scss';
+import { pagination, page, row } from './Issues.scss';
 
 class Issues extends React.Component {
   constructor() {
@@ -19,9 +20,10 @@ class Issues extends React.Component {
       totalPages: 1
     };
 
-    this.fetchIssues = this.fetchIssues.bind(this);
+    this.fetchIssues        = this.fetchIssues.bind(this);
     this.handleStateOnFetch = this.handleStateOnFetch.bind(this);
-    this.handlePageClick = this.handlePageClick.bind(this);
+    this.handlePageClick    = this.handlePageClick.bind(this);
+    this.handleSelect       = this.handleSelect.bind(this);
   }
 
 
@@ -29,7 +31,6 @@ class Issues extends React.Component {
   fetchIssues(search, pageNum, perPage) {
     return fetch(`https://api.github.com/repos/${search}/issues?page=${pageNum}&per_page=${perPage}`)
       .then(response => {
-        console.log(response);
         if (response.status >= 200 && response.status < 300) return response;
         else {
           const error = new Error(response.statusText);
@@ -47,18 +48,22 @@ class Issues extends React.Component {
     ) - 1;
   }
 
-  handleStateOnFetch(search, pageNum = this.state.pageNum) {
-    const { perPage } = this.state;
+  handleStateOnFetch(
+    search,
+    pageNum = this.state.pageNum,
+    perPage = this.state.perPage
+  ) {
     let totalPages;
 
     // this.setState({ error: '' });
     this.fetchIssues(search, pageNum, perPage)
       .then(response => {
         totalPages = this.getTotalPages(response.headers);
-        console.log(totalPages);
         return response.json();
       })
-      .then(issues => this.setState({ issues, error: '', totalPages }))
+      .then(issues => {
+        this.setState({ issues, error: '', totalPages, perPage });
+      })
       .catch(({ message }) => this.setState({ error: message }));
   }
 
@@ -69,6 +74,12 @@ class Issues extends React.Component {
 
     this.setState({ pageNum, issues: [] });
     this.handleStateOnFetch(this.props.search, pageNum);
+  }
+
+  handleSelect(event) {
+    const perPage = parseInt(event.target.value);
+    console.log(perPage);
+    this.handleStateOnFetch(this.props.search, 1, perPage);
   }
 
   componentDidMount() {
@@ -82,19 +93,22 @@ class Issues extends React.Component {
 
 
   render() {
-    const { issues, error, totalPages } = this.state;
+    const { issues, error, totalPages, perPage } = this.state;
 
     if (error)          return <div>{error}</div>;
     if (!issues.length) return <div>Loading...</div>;
 
     return (
       <div>
-        <div className={pagination} onClick={this.handlePageClick}>
-          {
-            new Array(totalPages).fill().map((_, index) => (
-              <div className={page} key={index}>{index + 1}</div>
-            ))
-          }
+        <div className={row}>
+          <Select options={[10, 20, 30, 100]} defaultValue={perPage} handleSelect={this.handleSelect} />
+          <div className={pagination} onClick={this.handlePageClick}>
+            {
+              new Array(totalPages).fill().map((_, index) => (
+                <div className={page} key={index}>{index + 1}</div>
+              ))
+            }
+          </div>
         </div>
 
         <div>

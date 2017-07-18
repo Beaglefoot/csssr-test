@@ -1,14 +1,23 @@
+.row {
+  display: flex;
+
+  & > :first-child {
+    margin-right: 1em;
+  }
+}
+
 .pagination {
   display: flex;
+  flex-wrap: wrap;
   margin-bottom: 1em;
 }
 
 .page {
-  margin-left: 1em;
+  margin-right: 1em;
   cursor: pointer;
   color: #09f;
 
-  &:first-child {
-    margin-left: unset;
+  &:last-child {
+    margin-right: unset;
   }
 }
