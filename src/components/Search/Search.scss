@@ -1,0 +1,17 @@
+@import 'src/styles/variables';
+
+.form {
+  margin-bottom: 1em;
+  height: 1.5em;
+}
+
+.input {
+  height: inherit;
+  border: 1px solid $gray;
+}
+
+.button {
+  margin-left: 0.5em;
+  height: inherit;
+  border: 1px solid $gray;
+}
