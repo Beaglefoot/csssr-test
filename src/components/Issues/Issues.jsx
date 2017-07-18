@@ -13,6 +13,8 @@ class Issues extends React.Component {
     this.fetchIssues = this.fetchIssues.bind(this);
   }
 
+
+
   fetchIssues(search) {
     return fetch(`https://api.github.com/repos/${search}/issues?page=1&per_page=3`)
       .then(response => {
@@ -26,6 +28,8 @@ class Issues extends React.Component {
   }
 
   handleStateOnFetch(search) {
+    this.setState({ error: '' });
+
     this.fetchIssues(search)
       .then(issues => this.setState({ issues, error: '' }))
       .catch(({ message }) => this.setState({ error: message }));
@@ -38,6 +42,16 @@ class Issues extends React.Component {
   componentWillReceiveProps({ search }) {
     this.handleStateOnFetch(search);
   }
+
+  shouldComponentUpdate({ search }, { issues, error }) {
+    return (
+      this.props.search !== search ||
+      this.state.issues !== issues ||
+      this.state.error !== error
+    );
+  }
+
+
 
   render() {
     const { issues, error } = this.state;
