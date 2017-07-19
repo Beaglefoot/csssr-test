@@ -1,0 +1,40 @@
+@import 'src/styles/variables.scss';
+
+.details {
+  padding: 1em;
+  border: 1px solid $gray;
+  border-radius: 0.5em;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.name {
+  font-weight: bold;
+}
+
+.github-url {
+  display: block;
+}
+
+.back {
+  display: block;
+  margin-top: 1em;
+  text-align: center;
+}
+
+.github-url, .back {
+  color: $blue;
+  text-decoration: none;
+}
+
+.status {
+  color: $cherry;
+
+  &.active {
+    color: $green;
+  }
+}

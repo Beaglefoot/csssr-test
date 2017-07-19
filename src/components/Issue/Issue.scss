@@ -1,3 +1,5 @@
+@import 'src/styles/variables.scss';
+
 .issue {
   display: flex;
   justify-content: space-between;
@@ -10,4 +12,6 @@
 
 .header {
   font-weight: bold;
+  text-decoration: none;
+  color: $blue;
 }
