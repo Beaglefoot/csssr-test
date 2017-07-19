@@ -6,7 +6,7 @@ import 'whatwg-fetch';
 import Issue from '../Issue/Issue';
 import Select from '../Select/Select';
 
-import { pagination, page, row } from './Issues.scss';
+import { pagination, page, row, active } from './Issues.scss';
 
 class Issues extends React.Component {
   constructor() {
@@ -93,7 +93,7 @@ class Issues extends React.Component {
 
 
   render() {
-    const { issues, error, totalPages, perPage } = this.state;
+    const { issues, error, totalPages, perPage, pageNum } = this.state;
 
     if (error)          return <div>{error}</div>;
     if (!issues.length) return <div>Loading...</div>;
@@ -105,7 +105,15 @@ class Issues extends React.Component {
           <div className={pagination} onClick={this.handlePageClick}>
             {
               new Array(totalPages).fill().map((_, index) => (
-                <div className={page} key={index}>{index + 1}</div>
+                <div
+                  className={`
+                    ${page}
+                    ${pageNum === index + 1 ? ' '.concat(active) : ''}
+                  `}
+                  key={index}
+                >
+                  {index + 1}
+                </div>
               ))
             }
           </div>
