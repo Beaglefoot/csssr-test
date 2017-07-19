@@ -2,3 +2,9 @@
   max-width: 700px;
   margin: 0 auto;
 }
+
+:global {
+  body {
+    font-family: Calibri, Helvetica, Arial;
+  }
+}
