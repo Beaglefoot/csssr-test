@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { form, button, input } from './Search.scss';
+import { form, button, input, delimiter } from './Search.scss';
 
 const Search = ({ handleInput, handleSubmit }) => (
   <form className={form} onSubmit={handleSubmit}>
@@ -12,7 +12,7 @@ const Search = ({ handleInput, handleSubmit }) => (
       placeholder="Username"
     />
 
-    {' / '}
+    <div className={delimiter}>{' / '}</div>
 
     <input
       className={input}

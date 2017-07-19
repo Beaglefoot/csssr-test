@@ -1,5 +1,8 @@
+@import 'src/styles/variables.scss';
+
 .row {
   display: flex;
+  justify-content: space-between;
 
   & > :first-child {
     margin-right: 1em;
@@ -15,7 +18,7 @@
 .page {
   margin-right: 1em;
   cursor: pointer;
-  color: #09f;
+  color: $blue;
 
   &:last-child {
     margin-right: unset;
@@ -24,5 +27,9 @@
 
 .active {
   font-weight: bold;
-  color: #04f
+  color: $blue-bold;
+}
+
+.issue-item:not(:nth-child(2n)) {
+  background: $records-alternate;
 }

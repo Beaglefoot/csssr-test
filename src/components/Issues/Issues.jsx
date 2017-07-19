@@ -6,7 +6,7 @@ import 'whatwg-fetch';
 import Issue from '../Issue/Issue';
 import Select from '../Select/Select';
 
-import { pagination, page, row, active } from './Issues.scss';
+import { pagination, page, row, active, issueItem } from './Issues.scss';
 
 class Issues extends React.Component {
   constructor() {
@@ -101,7 +101,6 @@ class Issues extends React.Component {
     return (
       <div>
         <div className={row}>
-          <Select options={[10, 20, 30, 100]} defaultValue={perPage} handleSelect={this.handleSelect} />
           <div className={pagination} onClick={this.handlePageClick}>
             {
               new Array(totalPages).fill().map((_, index) => (
@@ -117,12 +116,20 @@ class Issues extends React.Component {
               ))
             }
           </div>
+
+          <Select
+            options={[10, 20, 30, 100]}
+            defaultValue={perPage}
+            handleSelect={this.handleSelect}
+          />
         </div>
 
         <div>
           {
             issues.map(issue => (
-              <Issue key={issue.id} {...issue} />
+              <div className={issueItem} key={issue.id}>
+                <Issue {...issue} />
+              </div>
             ))
           }
         </div>

@@ -1,6 +1,8 @@
 @import 'src/styles/variables';
 
 .form {
+  display: flex;
+  justify-content: center;
   margin-bottom: 1em;
   min-height: 1.5em;
 }
@@ -14,4 +16,8 @@
   margin-left: 0.5em;
   height: inherit;
   border: 1px solid $gray;
+}
+
+.delimiter {
+  margin: 0 0.5em;
 }

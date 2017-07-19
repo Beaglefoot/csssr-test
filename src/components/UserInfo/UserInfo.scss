@@ -1,0 +1,19 @@
+@import 'src/styles/variables.scss';
+
+.author {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.avatar {
+  max-width: $ava-size;
+  max-height: $ava-size;
+  border-radius: 50%;
+}
+
+.user {
+  display: block;
+  color: $blue;
+}

@@ -4,6 +4,8 @@ import React from 'react';
 import Search from '../Search/Search';
 import Issues from '../Issues/Issues';
 
+import { app } from './App.scss';
+
 class App extends React.Component {
   constructor() {
     super();
@@ -39,7 +41,7 @@ class App extends React.Component {
     const { search } = this.state;
 
     return (
-      <div>
+      <div className={app}>
         <Search
           handleInput={this.handleInput}
           handleSubmit={this.handleSubmit}
@@ -48,11 +50,6 @@ class App extends React.Component {
         { search &&
           <Issues search={search} />
         }
-        {'user: '}
-        {this.state.user}
-        <br />
-        {'repo: '}
-        {this.state.repo}
       </div>
     );
   }

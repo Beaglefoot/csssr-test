@@ -1,5 +1,11 @@
 .issue {
-  margin-bottom: 1em;
+  display: flex;
+  justify-content: space-between;
+  padding: 1em;
+
+  & > :last-child {
+    width: 7em;
+  }
 }
 
 .header {
