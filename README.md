@@ -31,3 +31,4 @@
 1. Клонируем репозиторий
 2. Устанавливаем зависимости через `npm install` или `yarn`
 3. Стартуем webpack-dev-server `npm run start`
+4. Открываем в браузере http://localhost:8080
