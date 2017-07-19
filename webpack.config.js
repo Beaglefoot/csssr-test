@@ -83,7 +83,6 @@ module.exports = {
     contentBase: './',
     historyApiFallback: true,
     inline: true,
-    hot: true,
-    open: true
+    hot: true
   }
 };
